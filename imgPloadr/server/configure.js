@@ -11,7 +11,7 @@ var path = require('path'),
     multer = require('multer');
 
 module.exports = function(app) {
-    app.engine('handlebars', exphbs.create({
+	app.engine('handlebars', exphbs.create({
         defaultLayout: 'main',
         layoutsDir: app.get('views') + '/layouts',
         partialsDir: [app.get('views') + '/partials'],
@@ -25,17 +25,19 @@ module.exports = function(app) {
     app.set('view engine', 'handlebars');
 
     app.use(morgan('dev'));
-    app.use(multer({ dest: path.join(__dirname, 'public/upload/temp') }));
+	app.use(bodyParser());
+	app.use(multer({ dest: path.join(__dirname, 'public/upload/temp')}));
 
-    app.use(methodOverride());
-    app.use(cookieParser('some-secret-value-here'));
-    routes(app);
+	app.use(methodOverride());
+	app.use(cookieParser('some-secret-value-here'));
+	routes(app);
+	
+	app.use('/public/', express.static(path.join(__dirname, '../public')));
 
-    app.use('/public/', express.static(path.join(__dirname, '../public')));
+	if ('development' === app.get('env')) {
+	   app.use(errorHandler());
+	}
 
-    if ('development' === app.get('env')) {
-        app.use(errorHandler());
-    }
-
-    return app;
+  	return app;
 };
+
