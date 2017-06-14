@@ -1,0 +1,14 @@
+{
+  "name": "pdfkit_graph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "pdfkit_graph.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pdfkit": "^0.8.2"
+  }
+}
